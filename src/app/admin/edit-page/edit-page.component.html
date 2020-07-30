@@ -1,0 +1,41 @@
+<div *ngIf="form; else loading">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div
+      class="form-control"
+      [ngClass]="{invalid: form.get('title').touched && form.get('title').invalid}"
+    >
+      <label for="title">Название поста</label>
+
+      <input type="text" id="title" placeholder="Type title here..." formControlName="title">
+
+      <div
+        class="validation"
+        *ngIf="form.get('title').touched && form.get('title').invalid"
+      >
+        <small
+          *ngIf="form.get('title').errors.required"
+        >
+          Название поста - обязательное поле к заполнению
+        </small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <quill-editor formControlName="text">
+
+      </quill-editor>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="form.invalid || submitted"
+    >
+      Обновить
+    </button>
+  </form>
+</div>
+
+<ng-template #loading>
+  <h4>Данные загружаются...</h4>
+</ng-template>
